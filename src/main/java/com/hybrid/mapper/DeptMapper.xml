@@ -33,7 +33,7 @@
     <update id="updateByDeptno" parameterType="com.hybrid.model.Dept">
     	update dept
     		set dname = #{dname},
-	    		loc = #{loc},
+	    		loc = #{loc}
     		where deptno = #{deptno}
     </update>
     <delete id="deleteByDeptno" parameterType="int">

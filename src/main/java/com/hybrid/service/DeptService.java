@@ -24,5 +24,28 @@ public class DeptService { // Bean등록을 하지 않아도 SpringFactory Bean�
 		List<Dept> depts = deptMapper.selectAll();
 		return depts;
 	}
+	
+	@Transactional
+	public Dept getDept(Integer deptno){
+		return deptMapper.selectByDeptno(deptno);
+	}
+	
+	@Transactional
+	public void insert(Dept dept){
+		deptMapper.insert(dept);
+	}
+	
+	@Transactional
+	public Dept delete(Integer deptno){
+		Dept dept = deptMapper.selectByDeptno(deptno);
+		deptMapper.deleteByDeptno(deptno);
+		return dept;
+		
+	}
+	
+	@Transactional
+	public void update(Dept dept){
+		deptMapper.updateByDeptno(dept);		
+	}
 
 }
