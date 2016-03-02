@@ -12,7 +12,7 @@
 <!-- 	      	<PatternLayout pattern="%d %5p [%c] %m%n"/> -->
 <!-- 	    </File> -->
 	</Appenders>
- 
+
 	<!-- Logger 설정 -->
 	<!-- TRACE, DEBUG, INFO, WARN, ERROR, FAFAL -->
 	<Loggers>
