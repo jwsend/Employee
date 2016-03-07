@@ -33,7 +33,7 @@
 	<property name="mapperLocations">
 		<list>
 			<value>classpath:com/hybrid/mapper/DeptMapper.xml</value>		
-<!-- 			<value>classpath:com/hybrid/mapper/EmpMapper.xml</value> -->
+			<value>classpath:com/hybrid/mapper/EmpMapper.xml</value>
 		</list>
 	</property>
 </bean>
@@ -43,8 +43,15 @@
 	<constructor-arg ref="sqlSessionFactory"/>
 </bean>
 	
+	<!-- DeptMapper -->
 	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.hybrid.mapper.DeptMapper"></property>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+
+	<!-- EmpMapper -->
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.hybrid.mapper.EmpMapper"></property>
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 	

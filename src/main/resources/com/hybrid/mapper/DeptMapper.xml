@@ -11,6 +11,7 @@
     
     <select id="selectAll" resultType="com.hybrid.model.Dept">
 		<include refid="FromDept"/>
+		order by deptno asc
     </select>
     <select id="selectByDeptno" resultType="com.hybrid.model.Dept" parameterType="int">
   		<include refid="FromDept"/>
@@ -31,13 +32,13 @@
     	)
     </insert>
     <update id="updateByDeptno" parameterType="com.hybrid.model.Dept">
-    	update dept
-    		set dname = #{dname},
-	    		loc = #{loc}
+    	update dept 
+    		set dname = #{dname}, 
+	    		loc = #{loc} 
     		where deptno = #{deptno}
     </update>
     <delete id="deleteByDeptno" parameterType="int">
-    	delete from dept
+    	delete from dept 
     		where deptno = #{deptno}
     </delete>
     

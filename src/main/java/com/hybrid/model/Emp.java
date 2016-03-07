@@ -2,27 +2,22 @@ package com.hybrid.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@XmlRootElement(name="Emp")
 public class Emp {
 	int empno;
 	String ename;
 	String job;
 	Integer mgr;
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy년 MM월 dd일")
 	Date hiredate;
 	Float sal;
 	Float comm;
 	Integer deptno;	
-	
-	public Emp(int empno, String ename, String job, Integer mgr, Date hiredate, Float sal, Float comm, Integer deptno) {
-		super();
-		this.empno = empno;
-		this.ename = ename;
-		this.job = job;
-		this.mgr = mgr;
-		this.hiredate = hiredate;
-		this.sal = sal;
-		this.comm = comm;
-		this.deptno = deptno;
-	}
 	
 	public int getEmpno() {
 		return empno;
