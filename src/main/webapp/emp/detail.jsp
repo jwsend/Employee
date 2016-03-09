@@ -4,7 +4,7 @@
 <html data-ng-app="Employee">
 <head>
 <meta charset="UTF-8">
-<title>delete.jsp</title>
+<title>detail.jsp</title>
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
@@ -12,34 +12,17 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script type="text/javascript">
 	var app = angular.module("Employee",[]);
-	app.controller("DeleteController", function($scope, $http) {
-	
-		$scope.deptno=${param.deptno}; // 바인딩 모델 생성
+	app.controller("DetailController", function($scope, $http) {
+		$scope.empno=${param.empno}; // 바인딩 모델 생성
 		
-		var ajax = $http.get("/Employee/dept?deptno="+$scope.deptno);
+		var ajax = $http.get("/Employee/emp?empno="+$scope.empno);
 		
 		ajax.then(function(value) {
-			$scope.dept = value.data;
+			$scope.emp = value.data;
 		}, function(reason) {
 			console.dir=reason.data;
 		});
 		
-		$scope.delpass = function(){
-			var ajax = $http['delete']("/Employee/dept?deptno="+$scope.deptno);			
-			ajax.then(function(value) {
-				console.dir(value);
-				if(value.data.success){
-					alert(value.data.message);
-					location.href = "./list.jsp";
-				}else{
-					alert(value.data.message);
-				}
-			}, function(reason) {
-				console.dir(reason);
-				alert(value.data.message);
-				console.dir(reason);
-			});
-		}
 	});	
 	
 </script>
@@ -47,23 +30,33 @@
 	label{width:80px}
 </style>
 </head>
-<body data-ng-controller="DeleteController" class="container">
-	<a href="./list.jsp" class="btn btn-info">부서 리스트</a>
+<body data-ng-controller="DetailController" class="container">
+	<a href="./list.jsp" class="btn btn-info">직원 리스트</a>
+	
+	<h1>직원정보</h1>
+	<pre>{{emp}}</pre>
 	<hr>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			부서정보
+			직원정보
 		</div>
 		<div class="panel-body">
 			<ul>
-				<li>Deptno : {{dept.deptno}}</li>
-				<li>Dname : {{dept.dname}}</li>
-				<li>Loc : {{dept.loc}}</li>
+				<li>Empno : {{emp.empno}}</li>
+				<li>Ename : {{emp.ename}}</li>
+				<li>Job : {{emp.job}}</li>
+				<li>Mgr : {{emp.mgr}}</li>
+				<li>hiredate : {{emp.hiredate | date:'yyyy년 MM월 dd일'}}</li>
+				<li>sal : {{emp.sal}}</li>
+				<li>comm : {{emp.comm}}</li>
+				<li>deptno : {{emp.dept.deptno}} {{emp.dept.dname}} {{emp.dept.loc}}</li>
+				
 			</ul>
 		</div>
 		<div class="panel-footer">
-			<input type="button" class="btn btn-primary" value="부서삭제" data-ng-click="delpass()" />
+		
 		</div>		
 	</div>
+
 </body>
 </html>

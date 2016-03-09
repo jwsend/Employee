@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hybrid.mapper.EmpMapper;
 import com.hybrid.model.Emp;
+import com.hybrid.model.Mgr;
 
 //어노테이션 서비스등록(@Service), 자동DI(@Autowired), 트렉젝션시작(@Transactional)
 
@@ -37,15 +38,21 @@ public class EmpService { // Bean등록을 하지 않아도 SpringFactory Bean�
 	
 	@Transactional
 	public Emp delete(Integer empno){
-		Emp Emp = empMapper.selectByEmpno(empno);
+		Emp emp = empMapper.selectByEmpno(empno);
 		empMapper.deleteByEmpno(empno);
-		return Emp;
+		return emp;
 		
 	}
 	
 	@Transactional
 	public void update(Emp emp){
 		empMapper.updateByEmpno(emp);		
+	}	
+	
+	@Transactional
+	public List<Mgr> getMgrs(){
+		List<Mgr> mgrs = empMapper.selectMgrs();
+		return mgrs;
 	}
 
 }

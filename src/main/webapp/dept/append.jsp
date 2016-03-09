@@ -26,6 +26,7 @@
 					alert(value.data.message);
 				}
 			}, function(reason) {
+				alert(value.data.message);
 				console.dir(reason);
 			});
 			

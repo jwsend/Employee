@@ -1,19 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hybrid.mapper.EmpMapper">
-
-    <select id="selectAll" resultType="com.hybrid.model.Emp">
+	
+	<sql id="FromEmp">      
     	select empno,
-    	ename,
-    	job,
-    	mgr,
-    	hiredate,
-    	sal,
-    	comm,
-    	deptno
+	    	ename,
+	    	job,
+	    	mgr,
+	    	hiredate,
+	    	sal,
+	    	comm,
+	    	deptno
     	from emp
+    </sql>
+	
+    <select id="selectAll" resultType="com.hybrid.model.Emp">
+		<include refid="FromEmp"/>
+		order by empno asc
     </select>
     
+    <select id="selectMgrs" resultType="com.hybrid.model.Mgr">
+    	select empno,
+	    	ename
+    	from emp
+    	order by empno asc
+    </select>
     
+    <resultMap type="com.hybrid.model.Emp" id="resultEmp">
+    	<id column="emp_empno" property="empno"/>
+    	<result column="emp_ename" property="ename"/>
+    	<result column="emp_job" property="job"/>
+    	<result column="emp_mgr" property="mgr"/>
+    	<result column="emp_hiredate" property="hiredate"/>
+    	<result column="emp_sal" property="sal"/>
+    	<result column="emp_comm" property="comm"/>
+    	<result column="dept_deptno" property="deptno"/>
+    	<association property="dept" javaType="com.hybrid.model.Dept">
+    		<id column="dept_deptno" property="deptno"/>
+    		<id column="dept_dname" property="dname"/>
+    		<id column="dept_loc" property="loc"/>
+    	</association>
+    	    	<!-- 1:1 관계 : association / 1:다 관계 : collection -->
+
+    </resultMap>
+    
+    <select id="selectByEmpno" resultType="com.hybrid.model.Emp" parameterType="int" resultMap="resultEmp">
+  		select e.empno	as emp_empno, 
+			e.ename	as emp_ename, 
+			e.job	as emp_job, 
+			e.mgr	as emp_mgr, 
+			e.hiredate	as emp_hiredate, 
+			e.sal	as emp_sal, 
+			e.comm	as emp_comm, 
+			d.deptno	as dept_deptno, 
+			d.dname	as dept_dname, 
+			d.loc	as dept_loc 
+		from emp e left outer join dept d 
+		on e.deptno = d.deptno 
+		where empno = #{empno}
+    </select>
+    
+    <insert id="insert" parameterType="com.hybrid.model.Emp">
+    	insert into emp
+    	(
+			empno,
+			ename,
+			job,
+			mgr,
+			hiredate,
+			sal,
+			comm,
+			deptno
+			
+    	)
+    	values
+    	(
+    		#{empno},
+    		#{ename},
+    		#{job, jdbcType=VARCHAR},
+    		#{mgr, jdbcType=NUMERIC},
+    		#{hiredate, jdbcType=TIMESTAMP},
+    		#{sal, jdbcType=NUMERIC},
+    		#{comm, jdbcType=NUMERIC},
+    		#{deptno, jdbcType=NUMERIC}
+    	)
+    </insert>
+    <update id="updateByEmpno" parameterType="com.hybrid.model.Emp">
+    	update emp 
+	    		set ename = #{ename},
+	    		job = #{job},
+	    		mgr = #{mgr},
+	    		hiredate = #{hiredate},
+	    		sal = #{sal},
+	    		comm = #{comm}, 
+	    		deptno = #{deptno}
+    		where empno = #{empno}
+    </update>
+    <delete id="deleteByEmpno" parameterType="int">
+    	delete from emp 
+    		where empno = #{empno}
+    </delete>
 
 </mapper>

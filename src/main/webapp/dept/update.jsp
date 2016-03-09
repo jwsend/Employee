@@ -26,9 +26,14 @@
 			
 			ajax.then(function(value) {
 				console.dir(value);
-				alert("부서가 수정되었습니다.");
-				location.href="./list.jsp";
+				if(value.data.success){
+					alert(value.data.message);
+					location.href = "./list.jsp";
+				}else{
+					alert(value.data.message);
+				}
 			}, function(reason) {
+				alert(value.data.message);
 				console.dir(reason);
 			});
 			

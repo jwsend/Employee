@@ -14,5 +14,8 @@
 	<!-- 컨트롤러를 위한 기능 -->
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
+	<mvc:view-resolvers>
+		<mvc:jsp prefix="/WEB-INF/" suffix=".jsp"/>
+	</mvc:view-resolvers>
 
 </beans>
