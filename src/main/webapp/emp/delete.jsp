@@ -45,17 +45,17 @@
 </script>
 <style type="text/css">
 	label{width:80px}
+	body{background-color:#f2f2f2;}
 </style>
 </head>
 <body data-ng-controller="DeleteController" class="container">
+	<br/>
 	<a href="./list.jsp" class="btn btn-info">직원 리스트</a>
+	<br/><br/>
 	
-	<h1>직원삭제</h1>
-	
-	<hr>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			직원정보
+			직원삭제
 		</div>
 		<div class="panel-body">
 			<ul>
@@ -66,12 +66,15 @@
 				<li>hiredate : {{emp.hiredate | date:'yyyy년 MM월 dd일'}}</li>
 				<li>sal : {{emp.sal}}</li>
 				<li>comm : {{emp.comm}}</li>
-				<li>deptno : {{emp.deptno}}</li>
+				<li>deptno : {{emp.deptno}} {{emp.dept.dname}} {{emp.dept.loc}}</li>
 			</ul>
 		</div>
 		<div class="panel-footer">
-			<input type="button" class="btn btn-primary" value="직원삭제" data-ng-click="delpass()" />
+			<input type="button" class="btn btn-primary" value="삭제" data-ng-click="delpass()" />
 		</div>		
 	</div>
+	
+	<pre>{{emp}}</pre>
+
 </body>
 </html>

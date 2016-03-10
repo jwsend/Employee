@@ -30,6 +30,10 @@
 	
 	
 </script>
+<style type="text/css">
+	body{background-color:#f2f2f2}
+	th,td{text-align:center}
+</style>
 </head>
 <body data-ng-controller="ListController" class="container">
 <!-- class="container-fluid" // width 전체 -->
@@ -38,7 +42,9 @@
 	 	<div class="col-md-4" style="background-color: blue;color:lightblue"><pre style="height:50px">{{response}}</pre></div>
 	 	<div class="col-md-4" style="background-color: green;color:lightblue">{{response.message}}</div>
 	 </div>
-	 <a href="./append.jsp" class="btn btn-primary">직원추가</a><br/><br/>
+	 <br/><br/>
+	 <a href="./append.jsp" class="btn btn-primary">직원추가</a>
+	 <br/><br/>
 	 <table class="table table-bordered table-hover">
 	 	<thead>
 	 		<tr>

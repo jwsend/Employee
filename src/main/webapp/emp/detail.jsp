@@ -28,14 +28,14 @@
 </script>
 <style type="text/css">
 	label{width:80px}
+	body{background-color:#f2f2f2;}
 </style>
 </head>
 <body data-ng-controller="DetailController" class="container">
+	<br/>
 	<a href="./list.jsp" class="btn btn-info">직원 리스트</a>
-	
-	<h1>직원정보</h1>
-	<pre>{{emp}}</pre>
-	<hr>
+	<br/><br/>
+
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			직원정보
@@ -53,10 +53,12 @@
 				
 			</ul>
 		</div>
-		<div class="panel-footer">
+<!-- 		<div class="panel-footer"> -->
 		
-		</div>		
+<!-- 		</div>		 -->
 	</div>
+
+	<pre>{{emp}}</pre>
 
 </body>
 </html>

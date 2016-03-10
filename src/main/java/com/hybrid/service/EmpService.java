@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hybrid.exception.EmptyEmpException;
 import com.hybrid.mapper.EmpMapper;
 import com.hybrid.model.Emp;
 import com.hybrid.model.Mgr;
@@ -39,6 +40,13 @@ public class EmpService { // Bean등록을 하지 않아도 SpringFactory Bean�
 	@Transactional
 	public Emp delete(Integer empno){
 		Emp emp = empMapper.selectByEmpno(empno);
+		
+		if(emp==null){
+			// 없는 직원을 삭제하려고 하면 selectByEmpno 리턴값이
+			//emp에 NULL 값으로 들어가기 때문에 EmptyEmp익셉션으로 던진다
+			throw new EmptyEmpException();
+		}
+		
 		empMapper.deleteByEmpno(empno);
 		return emp;
 		

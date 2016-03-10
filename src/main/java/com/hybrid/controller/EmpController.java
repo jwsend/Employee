@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hybrid.exception.EmptyEmpException;
 import com.hybrid.model.Emp;
 import com.hybrid.model.Mgr;
 import com.hybrid.service.EmpService;
@@ -67,7 +68,7 @@ public class EmpController {
 //		log.info("Comm="+emp.getComm());
 //		log.info("Deptno="+emp.getDeptno());
 
-		log.info("emp ="+emp);
+		log.info("emp = " + emp);
 		Map<String, Object> response = new HashMap<>();
 		
 		response.put("success", true);
@@ -103,6 +104,13 @@ public class EmpController {
 		
 		try{
 			empService.delete(empno);
+			//서비스에서 리턴된 emp 값을 View 단으로 리턴
+			//Emp emp = empService.delete(empno);
+			//response.put("data", emp);
+		}catch(EmptyEmpException e){
+			log.info("Error : "+e);
+			response.put("success", false);
+			response.put("message", "직원이 없어서 삭제할 수 없습니다.");
 		}catch(DataIntegrityViolationException ex){
 			log.info("Error : "+ex);
 			response.put("success", false);
@@ -110,7 +118,7 @@ public class EmpController {
 		}catch(RuntimeException ex2){
 			log.info(ex2.getMessage());
 			response.put("success", false);
-			response.put("message", "부서삭제 에러입니다. 다시 확인하세요.");
+			response.put("message", "직원삭제 에러입니다. 다시 확인하세요.");
 		}
 		return response;
 		
@@ -130,7 +138,7 @@ public class EmpController {
 		}catch (RuntimeException ex){
 			log.info(ex.getMessage());
 			response.put("success", false);
-			response.put("message", "부서수정 에러입니다. 다시 확인하세요.");
+			response.put("message", "직원수정 에러입니다. 다시 확인하세요.");
 		}
 		return response;
 	}
