@@ -1,6 +1,8 @@
 package com.hybrid.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,28 @@ public class EmpService { // Bean등록을 하지 않아도 SpringFactory Bean�
 	public List<Emp> getList(){
 		List<Emp> Emps = empMapper.selectAll();
 		return Emps;
+	}
+	
+	@Transactional
+	public List<Emp> getPage(int pageNo){
+		Map<String, Integer> paging = new HashMap<>();
+		// 실제 페이지 개수
+		// 1Page = 1~10
+		// 2Page = 11~20
+		int itemCount=5;
+		int firstItem = (pageNo*itemCount) - (itemCount-1) ;
+		int lastItem = firstItem+(itemCount-1);
+		paging.put("firstItem", firstItem);
+		paging.put("lastItem", lastItem);
+		
+		List<Emp> emps = empMapper.selectPage(paging);
+		return emps;
+	}
+	
+	@Transactional
+	public int getCount(){
+		// 전체 페이지 개수
+		return empMapper.selectCount();
 	}
 	
 	@Transactional

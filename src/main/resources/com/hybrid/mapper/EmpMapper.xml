@@ -60,6 +60,22 @@
 		where empno = #{empno}
     </select>
     
+    <select id="selectPage" resultType="com.hybrid.model.Emp" parameterType="hashmap">
+		select outer.*
+		from ( select rownum r, inner.*
+			from ( select *
+				from emp
+				order by empno asc
+				) inner
+			) outer
+		where outer.r &gt;= #{firstItem}
+		and outer.r &lt;= #{lastItem}
+    </select>
+    
+    <select id="selectCount" resultType="int">
+    	select count(*) from emp
+    </select>
+    
     <insert id="insert" parameterType="com.hybrid.model.Emp">
     	insert into emp
     	(

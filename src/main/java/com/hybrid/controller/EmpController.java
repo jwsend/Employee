@@ -149,5 +149,22 @@ public class EmpController {
 		return empService.getMgrs();
 	}
 	
+	
+	@RequestMapping(value="/emp/page")
+	@ResponseBody
+	public Map<String, Object> getPage(Integer pageNo){
+		Map<String, Object> response = new HashMap<>();
+		
+		int count = empService.getCount();
+		
+		List<Emp> emps = empService.getPage(pageNo);
+		
+		response.put("pageNo", pageNo);
+		response.put("totalCount", count);
+		response.put("emps", emps);
+		return response;
+	}
+
+	
 }
 
